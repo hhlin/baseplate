@@ -337,7 +337,7 @@ class ThriftServerSpanTests(GeventPatchedTestCase):
                     client.example()
 
         server_span_observer.on_start.assert_called_once_with()
-        server_span_observer.on_finish.assert_called_once()
+        self.assertEqual(server_span_observer.on_finish.call_count, 1)
         _, captured_exc, _ = server_span_observer.on_finish.call_args[0][0]
         self.assertIsInstance(captured_exc, UnexpectedException)
 
@@ -393,7 +393,7 @@ class ThriftClientSpanTests(GeventPatchedTestCase):
                     context.example_service.example()
 
         client_span_observer.on_start.assert_called_once_with()
-        client_span_observer.on_finish.assert_called_once()
+        self.assertEqual(client_span_observer.on_finish.call_count, 1)
         _, captured_exc, _ = client_span_observer.on_finish.call_args[0][0]
         self.assertIsInstance(captured_exc, TApplicationException)
 
