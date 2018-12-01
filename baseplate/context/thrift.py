@@ -135,7 +135,7 @@ class PooledClientProxy(object):
                 # this is an expected exception, as defined in the IDL
                 span.finish()
                 raise
-            except Exception:
+            except:
                 # something unexpected happened
                 span.finish(exc_info=sys.exc_info())
                 raise
